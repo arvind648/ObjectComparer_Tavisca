@@ -45,7 +45,6 @@
     <Compile Include="AbstractComparerT.cs" />
     <Compile Include="BaseComparer.cs" />
     <Compile Include="Comparer.cs" />
-    <Compile Include="ComparerOverridesCollection.cs" />
     <Compile Include="ComparersFactory.cs" />
     <Compile Include="ComparerT.cs" />
     <Compile Include="CustomComparers\AbstractEnumerablesComparer.cs" />

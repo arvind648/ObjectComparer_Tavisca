@@ -32,9 +32,10 @@ namespace ObjectComparer
 
         internal IEnumerable<Difference> CalculateDifferences(T obj1, T obj2, MemberInfo memberInfo)
         {
-            var comparer = memberInfo != null
-                ? OverridesCollection.GetComparer(memberInfo)
-                : OverridesCollection.GetComparer(typeof(T));
+            IValueComparer comparer = null;
+            //var comparer = memberInfo != null
+            //    ? OverridesCollection.GetComparer(memberInfo)
+            //    : OverridesCollection.GetComparer(typeof(T));
 
             if (typeof(T).IsComparable() ||
                 comparer != null)
@@ -82,13 +83,7 @@ namespace ObjectComparer
 
                 var valueComparer = DefaultValueComparer;
                 var hasCustomComparer = false;
-
-                var comparerOverride = OverridesCollection.GetComparer(member);
-                if (comparerOverride != null)
-                {
-                    valueComparer = comparerOverride;
-                    hasCustomComparer = true;
-                }
+              
 
                 if (!hasCustomComparer
                     && !type.IsComparable())

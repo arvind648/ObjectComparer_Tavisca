@@ -12,7 +12,6 @@ namespace ObjectComparer
 
         protected IComparersFactory Factory { get; }
 
-        internal ComparerOverridesCollection OverridesCollection { get; } = new ComparerOverridesCollection();
 
         protected BaseComparer( BaseComparer parentComparer, IComparersFactory factory)
         {
@@ -20,8 +19,7 @@ namespace ObjectComparer
             DefaultValueComparer = new DefaultValueComparer();
             if (parentComparer != null)
             {
-                DefaultValueComparer = parentComparer.DefaultValueComparer;
-                OverridesCollection.Merge(parentComparer.OverridesCollection);
+                DefaultValueComparer = parentComparer.DefaultValueComparer;               
             }
         }
         

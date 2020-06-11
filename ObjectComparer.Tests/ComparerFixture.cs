@@ -61,6 +61,35 @@ namespace ObjectComparer.Tests
         }
         #endregion
 
+        #region Int
+        [TestMethod]
+        public void String_Equality()
+        {
+            var a1 = new ClassA("Arvind");
+            var a2 = new ClassA("Arvind");
+            var comparer = new Comparer();
+
+            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+
+            Assert.IsTrue(isEqual);
+            Assert.IsTrue(diff.IsNullOrEmpty());
+        }
+
+        [TestMethod]
+        public void String_Inequality()
+        {
+            var a1 = new ClassA("Arvind");
+            var a2 = new ClassA("Vaibhav");
+            var comparer = new Comparer<ClassA>();
+
+            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+
+            Assert.IsFalse(diff.IsNullOrEmpty());
+            Assert.IsFalse(isEqual);
+            Assert.AreEqual("stringProperty", diff.First().MemberPath);
+        }
+        #endregion
+
         #region Datetime
         [TestMethod]
         public void DateTime_Equality()
