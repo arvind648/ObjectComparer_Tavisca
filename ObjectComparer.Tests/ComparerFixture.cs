@@ -191,13 +191,13 @@ namespace ObjectComparer.Tests
                     Property1 = "A"
                 }
             };
-            var a2  = new ClassA
+            var a2 = new ClassA
             {
                 ClassB = new ClassB
                 {
                     Property1 = "A"
                 }
-            };          
+            };
             var comparer = new Comparer<ClassA>();
 
             var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
@@ -220,6 +220,72 @@ namespace ObjectComparer.Tests
                 ClassB = new ClassB
                 {
                     Property1 = "BBB"
+                }
+            };
+            var comparer = new Comparer<ClassA>();
+
+            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            Assert.IsFalse(diff.IsNullOrEmpty());
+            Assert.IsFalse(isEqual);
+        }
+        #endregion
+
+        #region Nested_IEnumerable_Of_Class
+        [TestMethod]
+        public void NestedEnumerableOfClass_Equality()
+        {
+            var a1 = new ClassA
+            {
+                EnumerableOfB = new List<ClassB>
+                {
+                    new ClassB
+                    {
+                        Property1 = "A"
+                    }
+                }
+            };
+            var a2 = new ClassA
+            {
+                EnumerableOfB = new List<ClassB>
+                {
+                    new ClassB
+                    {
+                        Property1 = "A"
+                    }
+                }
+            };
+            var comparer = new Comparer<ClassA>();
+
+            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+
+            Assert.IsTrue(diff.IsNullOrEmpty());
+            Assert.IsTrue(isEqual);
+        }
+        [TestMethod]
+        public void NestedEnumerableOfClass_InEquality()
+        {
+            var a1 = new ClassA
+            {
+                EnumerableOfB = new List<ClassB>
+                {
+                    new ClassB
+                    {
+                        Property1 = "A"
+                    },
+                    new ClassB
+                    {
+                        Property1 = "C"
+                    }
+                }
+            };
+            var a2 = new ClassA
+            {
+                EnumerableOfB = new List<ClassB>
+                {
+                    new ClassB
+                    {
+                        Property1 = "A"
+                    }
                 }
             };
             var comparer = new Comparer<ClassA>();
