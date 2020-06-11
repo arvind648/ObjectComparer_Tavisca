@@ -48,7 +48,6 @@
     <Compile Include="ComparerOverridesCollection.cs" />
     <Compile Include="ComparersFactory.cs" />
     <Compile Include="ComparerT.cs" />
-    <Compile Include="CustomComparers\AbstractDynamicObjectsComprer.cs" />
     <Compile Include="CustomComparers\AbstractEnumerablesComparer.cs" />
     <Compile Include="CustomComparers\EnumerablesComparerT.cs" />
     <Compile Include="CustomComparers\GenericEnumerablesComparer.cs" />
