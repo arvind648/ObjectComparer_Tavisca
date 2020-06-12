@@ -16,18 +16,13 @@ namespace ObjectComparer
             _comparer = Factory.GetObjectComparer<T>( this);
         }
 
-        public override IEnumerable<Difference> CalculateDifferences(Type type, object obj1, object obj2)
+        public override bool IsSimilar(Type type, object obj1, object obj2)
         {
             if (!type.InheritsFrom(typeof(IEnumerable<>)))
             {
                 throw new ArgumentException("Invalid type");
             }
 
-            //if (!Settings.EmptyAndNullEnumerablesEqual &&
-            //    (obj1 == null || obj2 == null) && obj1 != obj2)
-            //{
-            //    yield break;
-            //}
 
             obj1 = obj1 ?? Enumerable.Empty<T>();
             obj2 = obj2 ?? Enumerable.Empty<T>();
@@ -53,22 +48,26 @@ namespace ObjectComparer
 
             if (list1.Count != list2.Count)
             {
-                if (!type.GetTypeInfo().IsArray)
-                {
-                    yield return new Difference("", list1.Count.ToString(), list2.Count.ToString(),
-                        DifferenceTypes.NumberOfElementsMismatch);
-                }
+                return false;
+                //if (!type.GetTypeInfo().IsArray)
+                //{
 
-                yield break;
+                //    yield return new Difference("", list1.Count.ToString(), list2.Count.ToString(),
+                //        DifferenceTypes.NumberOfElementsMismatch);
+                //}
+
+                //yield break;
             }
 
             for (var i = 0; i < list2.Count; i++)
             {
-                foreach (var failure in _comparer.CalculateDifferences(list1[i], list2[i]))
-                {
-                    yield return failure.InsertPath($"[{i}]");
-                }
+                if (!_comparer.IsSimilar(list1[i], list2[i])) return false;
+                //foreach (var failure in _comparer.CalculateDifferences(list1[i], list2[i]))
+                //{
+                //    yield return failure.InsertPath($"[{i}]");
+                //}
             }
+            return true;
         }
     }
 }

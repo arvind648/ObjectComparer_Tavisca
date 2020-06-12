@@ -15,11 +15,11 @@ namespace ObjectComparer
         {
         }
 
-        public override IEnumerable<Difference> CalculateDifferences(Type type, object obj1, object obj2)
+        public override bool IsSimilar(Type type, object obj1, object obj2)
         {
             if (obj1 == null && obj2 == null)
             {
-                yield break;
+                return true;
             }
 
             var typeInfo = (obj1 ?? obj2).GetType().GetTypeInfo();
@@ -44,10 +44,12 @@ namespace ObjectComparer
             var enumerablesComparerType = typeof(EnumerablesComparer<>).MakeGenericType(elementType);
             var comparer = (IComparer)Activator.CreateInstance(enumerablesComparerType,  this, Factory);
 
-            foreach (var difference in comparer.CalculateDifferences(type, obj1, obj2))
-            {
-                yield return difference;
-            }
+
+            return comparer.IsSimilar(type, obj1, obj2);
+            //foreach (var difference in comparer.CalculateDifferences(type, obj1, obj2))
+            //{
+            //    yield return difference;
+            //}            
         }
 
         public override bool IsMatch(Type type, object obj1, object obj2)

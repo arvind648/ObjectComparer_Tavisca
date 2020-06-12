@@ -18,17 +18,17 @@ namespace ObjectComparer.Tests
         {
             string first = null, second = "arvind";
             var comparer = new Comparer();
-            var isEqual = comparer.Compare(first, second, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(first, second);
             Assert.IsFalse(isEqual);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            
         }
         public void NullValue_Equality()
         {
             string first = null, second = null;
             var comparer = new Comparer();
-            var isEqual = comparer.Compare(first, second, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(first, second);
             Assert.IsTrue(isEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
         #endregion
 
@@ -40,10 +40,10 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(9);
             var comparer = new Comparer();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
             Assert.IsTrue(isEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
 
         [TestMethod]
@@ -53,11 +53,10 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(8);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsFalse(diff.IsNullOrEmpty());
-            Assert.IsFalse(isEqual);
-            Assert.AreEqual("IntProperty", diff.First().MemberPath);
+            
+            Assert.IsFalse(isEqual);            
         }
         #endregion
 
@@ -69,10 +68,10 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA("Arvind");
             var comparer = new Comparer();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
             Assert.IsTrue(isEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
 
         [TestMethod]
@@ -82,11 +81,10 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA("Vaibhav");
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsFalse(diff.IsNullOrEmpty());
-            Assert.IsFalse(isEqual);
-            Assert.AreEqual("stringProperty", diff.First().MemberPath);
+            
+            Assert.IsFalse(isEqual);            
         }
         #endregion
 
@@ -99,9 +97,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(dtNow);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -112,10 +110,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(dtNow.AddDays(2));
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
-            Assert.IsFalse(isEqual);
-            Assert.AreEqual("DateTimeProperty", diff.First().MemberPath);
+            var isEqual = comparer.Compare(a1, a2);
+            
+            Assert.IsFalse(isEqual);            
         }
         #endregion
 
@@ -127,9 +124,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(2.0);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -139,8 +136,8 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(5.5);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            var isEqual = comparer.Compare(a1, a2);
+            
             Assert.IsFalse(isEqual);
         }
         #endregion
@@ -153,9 +150,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(true);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -165,8 +162,8 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(false);
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            var isEqual = comparer.Compare(a1, a2);
+            
             Assert.IsFalse(isEqual);
         }
         #endregion
@@ -179,9 +176,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(new int[] { 1, 4, 3 });
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -191,9 +188,9 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(new int[] { 4, 3, 1 });
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -203,8 +200,8 @@ namespace ObjectComparer.Tests
             var a2 = new ClassA(new int[] { 1, 3, 5, 7 });
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            var isEqual = comparer.Compare(a1, a2);
+            
             Assert.IsFalse(isEqual);
         }
         #endregion
@@ -229,9 +226,9 @@ namespace ObjectComparer.Tests
             };
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -253,8 +250,8 @@ namespace ObjectComparer.Tests
             };
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            var isEqual = comparer.Compare(a1, a2);
+            
             Assert.IsFalse(isEqual);
         }
         #endregion
@@ -285,9 +282,9 @@ namespace ObjectComparer.Tests
             };
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
+            var isEqual = comparer.Compare(a1, a2);
 
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
             Assert.IsTrue(isEqual);
         }
         [TestMethod]
@@ -319,8 +316,8 @@ namespace ObjectComparer.Tests
             };
             var comparer = new Comparer<ClassA>();
 
-            var isEqual = comparer.Compare(a1, a2, out IEnumerable<Difference> diff);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            var isEqual = comparer.Compare(a1, a2);
+            
             Assert.IsFalse(isEqual);
         }
         #endregion
@@ -332,9 +329,9 @@ namespace ObjectComparer.Tests
             var comparer = new Comparer<List<string>>();
             var obj1 = new List<string> { "1", "2", "0" };
             var obj2 = new List<string> { "1", "2", "0" };
-            bool IsEqual = comparer.Compare(obj1, obj2, out IEnumerable<Difference> diff);
+            bool IsEqual = comparer.Compare(obj1, obj2);
             Assert.IsTrue(IsEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
 
         [TestMethod]
@@ -344,9 +341,9 @@ namespace ObjectComparer.Tests
 
             var obj1 = new List<string> { "1", "2", "0" };
             var obj2 = new List<string> { "2", "0", "1" };
-            bool IsEqual = comparer.Compare(obj1, obj2, out IEnumerable<Difference> diff);
+            bool IsEqual = comparer.Compare(obj1, obj2);
             Assert.IsTrue(IsEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
 
         [TestMethod]
@@ -356,9 +353,9 @@ namespace ObjectComparer.Tests
 
             var obj1 = new List<string> { "1", "2", "3" };
             var obj2 = new List<string> { "1", "2", "5", "6" };
-            bool IsEqual = comparer.Compare(obj1, obj2, out IEnumerable<Difference> diff);
+            bool IsEqual = comparer.Compare(obj1, obj2);
             Assert.IsFalse(IsEqual);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            
         }
         #endregion 
 
@@ -370,9 +367,9 @@ namespace ObjectComparer.Tests
             Dictionary<int, string> obj1 = new Dictionary<int, string> { { 3, "4" } };
             Dictionary<int, string> obj2 = new Dictionary<int, string> { { 3, "4" } };
 
-            bool IsEqual = comparer.Compare(obj1, obj2, out IEnumerable<Difference> diff);
+            bool IsEqual = comparer.Compare(obj1, obj2);
             Assert.IsTrue(IsEqual);
-            Assert.IsTrue(diff.IsNullOrEmpty());
+            
         }
 
         [TestMethod]
@@ -382,9 +379,9 @@ namespace ObjectComparer.Tests
             Dictionary<int, string> obj1 = new Dictionary<int, string> { { 5, "4" }, { 9, "2" } };
             Dictionary<int, string> obj2 = new Dictionary<int, string> { { 3, "4" } };
 
-            bool IsEqual = comparer.Compare(obj1, obj2, out IEnumerable<Difference> diff);
+            bool IsEqual = comparer.Compare(obj1, obj2);
             Assert.IsFalse(IsEqual);
-            Assert.IsFalse(diff.IsNullOrEmpty());
+            
         }
         #endregion
 

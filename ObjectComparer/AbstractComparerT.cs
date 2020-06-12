@@ -10,18 +10,17 @@ namespace ObjectComparer
         {
         }
 
-        public bool Compare(T obj1, T obj2, out IEnumerable<Difference> differences)
-        {
-            differences = CalculateDifferences(obj1, obj2);
-
-            return !differences.Any();
-        }
-
         public bool Compare(T obj1, T obj2)
         {
-            return !CalculateDifferences(obj1, obj2).Any();
+            return IsSimilar(obj1, obj2);
+            
         }
 
-        public abstract IEnumerable<Difference> CalculateDifferences(T obj1, T obj2);
+        //public bool Compare(T obj1, T obj2)
+        //{
+        //    return IsSimilar(obj1, obj2);
+        //}
+
+        public abstract bool IsSimilar(T obj1, T obj2);
     }
 }

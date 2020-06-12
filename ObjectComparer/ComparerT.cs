@@ -12,123 +12,65 @@ namespace ObjectComparer
         private readonly List<MemberInfo> _members;
         private readonly List<IComparerWithCondition> _conditionalComparers;
 
-        public Comparer( BaseComparer parentComparer = null, ComparersFactory factory = null)
-        : base( parentComparer, factory)
+        public Comparer(BaseComparer parentComparer = null, ComparersFactory factory = null) : base(parentComparer, factory)
         {
-            var properties = GetProperties(typeof(T), new List<Type>());
-            var fields = typeof(T).GetTypeInfo().GetFields().Where(f =>
-                f.IsPublic && !f.IsStatic).ToList();
+            var properties = GetProperties(typeof(T));
+            var fields = typeof(T).GetTypeInfo().GetFields().Where(f => f.IsPublic && !f.IsStatic).ToList();
+
             _members = properties.Union(fields.Cast<MemberInfo>()).ToList();
             _conditionalComparers = new List<IComparerWithCondition>
-            {               
-                new GenericEnumerablesComparer( this, Factory),             
-            };            
-        }
-
-        public override IEnumerable<Difference> CalculateDifferences(T obj1, T obj2)
-        {
-            return CalculateDifferences(obj1, obj2, null);
-        }
-
-        internal IEnumerable<Difference> CalculateDifferences(T obj1, T obj2, MemberInfo memberInfo)
-        {
-            IValueComparer comparer = null;
-            //var comparer = memberInfo != null
-            //    ? OverridesCollection.GetComparer(memberInfo)
-            //    : OverridesCollection.GetComparer(typeof(T));
-
-            if (typeof(T).IsComparable() ||
-                comparer != null)
             {
-                comparer = comparer ?? DefaultValueComparer;
-                if (!comparer.Compare(obj1, obj2))
-                {
-                    yield return
-                        new Difference(string.Empty, comparer.ToString(obj1),
-                            comparer.ToString(obj2));
-                }
+                new GenericEnumerablesComparer( this, Factory),
+            };
+        }       
 
-                yield break;
+        public override bool IsSimilar(T obj1, T obj2)
+        {            
+            if (typeof(T).IsComparable())
+            {                
+                return DefaultValueComparer.Compare(obj1, obj2);
             }
 
             var conditionalComparer = _conditionalComparers.FirstOrDefault(c => c.IsMatch(typeof(T), obj1, obj2));
             if (conditionalComparer != null)
             {
-                foreach (var difference in conditionalComparer.CalculateDifferences(typeof(T), obj1, obj2))
-                {
-                    yield return difference;
-                }             
+                if (!conditionalComparer.IsSimilar(typeof(T), obj1, obj2)) { return false; }
             }
 
             if (obj1 == null || obj2 == null)
             {
-                if (!DefaultValueComparer.Compare(obj1, obj2))
-                {
-                    yield return new Difference(string.Empty, DefaultValueComparer.ToString(obj1), DefaultValueComparer.ToString(obj2));
-                }
-
-                yield break;
-            }         
+                return DefaultValueComparer.Compare(obj1, obj2);
+            }
 
             foreach (var member in _members)
             {
                 var value1 = member.GetMemberValue(obj1);
                 var value2 = member.GetMemberValue(obj2);
                 var type = member.GetMemberType();
-
-                if (conditionalComparer != null && conditionalComparer.SkipMember(typeof(T), member))
-                {
-                    continue;
-                }
-
-                var valueComparer = DefaultValueComparer;
-                var hasCustomComparer = false;
               
-
-                if (!hasCustomComparer
-                    && !type.IsComparable())
+                if (!type.IsComparable())
                 {
                     var objectDataComparer = Factory.GetObjectComparer(type, this);
-
-                    foreach (var failure in objectDataComparer.CalculateDifferences(type, value1, value2))
-                    {
-                        yield return failure.InsertPath(member.Name);
-                    }
-
+                    if (!objectDataComparer.IsSimilar(type, value1, value2)) { return false; }
                     continue;
                 }
 
-                if (!valueComparer.Compare(value1, value2))
+                if (!DefaultValueComparer.Compare(value1, value2))
                 {
-                    yield return new Difference(member.Name, valueComparer.ToString(value1), valueComparer.ToString(value2));
+                    return false;                   
                 }
             }
+            return true;
         }
 
-        private List<PropertyInfo> GetProperties(Type type, List<Type> processedTypes)
+        private List<PropertyInfo> GetProperties(Type type)
         {
             var properties = type.GetTypeInfo().GetProperties().Where(p =>
                 p.CanRead
                 && p.GetGetMethod(true).IsPublic
                 && p.GetGetMethod(true).GetParameters().Length == 0
                 && !p.GetGetMethod(true).IsStatic).ToList();
-            processedTypes.Add(type);
 
-            if (type.GetTypeInfo().IsInterface)
-            {
-                foreach (var parrentInterface in type.GetTypeInfo().GetInterfaces())
-                {
-                    if (processedTypes.Contains(parrentInterface))
-                    {
-                        continue;
-                    }
-
-                    properties = properties
-                        .Union(GetProperties(parrentInterface, processedTypes))
-                        .Distinct()
-                        .ToList();
-                }
-            }
 
             return properties;
         }
