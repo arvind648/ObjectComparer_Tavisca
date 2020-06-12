@@ -2,7 +2,7 @@
 
 namespace ObjectComparer
 {
-    public class ComparersFactory : IComparersFactory
+    public class ComparersFactory //: IComparersFactory
     {
         public virtual IComparer<T> GetObjectComparer<T>( BaseComparer parentComparer = null)
         {

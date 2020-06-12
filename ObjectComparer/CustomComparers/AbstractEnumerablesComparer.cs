@@ -8,7 +8,7 @@ namespace ObjectComparer
     internal abstract class AbstractEnumerablesComparer : AbstractComparer, IComparerWithCondition
     {
         protected AbstractEnumerablesComparer( BaseComparer parentComparer,
-            IComparersFactory factory)
+            ComparersFactory factory)
             : base( parentComparer, factory)
         {
         }  

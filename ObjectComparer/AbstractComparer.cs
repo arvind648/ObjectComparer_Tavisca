@@ -6,7 +6,7 @@ namespace ObjectComparer
 {
     public abstract class AbstractComparer : BaseComparer, IComparer
     {
-        protected AbstractComparer( BaseComparer parentComparer, IComparersFactory factory)
+        protected AbstractComparer( BaseComparer parentComparer, ComparersFactory factory)
             : base( parentComparer, factory)
         {
         }

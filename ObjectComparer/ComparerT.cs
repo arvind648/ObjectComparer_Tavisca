@@ -12,7 +12,7 @@ namespace ObjectComparer
         private readonly List<MemberInfo> _members;
         private readonly List<IComparerWithCondition> _conditionalComparers;
 
-        public Comparer( BaseComparer parentComparer = null, IComparersFactory factory = null)
+        public Comparer( BaseComparer parentComparer = null, ComparersFactory factory = null)
         : base( parentComparer, factory)
         {
             var properties = GetProperties(typeof(T), new List<Type>());

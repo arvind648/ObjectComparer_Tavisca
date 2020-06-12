@@ -10,7 +10,7 @@ namespace ObjectComparer
     internal class GenericEnumerablesComparer : AbstractEnumerablesComparer
     {
         public GenericEnumerablesComparer( BaseComparer parentComparer,
-            IComparersFactory factory)
+            ComparersFactory factory)
             : base( parentComparer, factory)
         {
         }

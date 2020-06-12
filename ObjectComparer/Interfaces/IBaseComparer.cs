@@ -4,8 +4,8 @@ using System.Reflection;
 
 namespace ObjectComparer
 {
-    public interface IBaseComparer
-    {
-        IValueComparer DefaultValueComparer { get; }      
-    }
+    //public interface IBaseComparer
+    //{
+    //    IValueComparer DefaultValueComparer { get; }      
+    //}
 }

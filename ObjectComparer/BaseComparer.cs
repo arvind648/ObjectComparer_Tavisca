@@ -5,15 +5,15 @@ using ObjectComparer.Utils;
 
 namespace ObjectComparer
 {
-    public abstract class BaseComparer : IBaseComparer
+    public abstract class BaseComparer //: IBaseComparer
     {        
 
         public IValueComparer DefaultValueComparer { get; private set; }
 
-        protected IComparersFactory Factory { get; }
+        protected ComparersFactory Factory { get; }
 
 
-        protected BaseComparer( BaseComparer parentComparer, IComparersFactory factory)
+        protected BaseComparer( BaseComparer parentComparer, ComparersFactory factory)
         {
             Factory = factory ?? new ComparersFactory();            
             DefaultValueComparer = new DefaultValueComparer();

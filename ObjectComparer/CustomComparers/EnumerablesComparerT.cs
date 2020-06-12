@@ -10,7 +10,7 @@ namespace ObjectComparer
     {
         private readonly IComparer<T> _comparer;
 
-        public EnumerablesComparer( BaseComparer parentComparer, IComparersFactory factory)
+        public EnumerablesComparer( BaseComparer parentComparer, ComparersFactory factory)
             : base( parentComparer, factory)
         {
             _comparer = Factory.GetObjectComparer<T>( this);

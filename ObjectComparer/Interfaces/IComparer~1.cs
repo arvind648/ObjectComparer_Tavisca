@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ObjectComparer
 {
-    public interface IComparer<in T> : IBaseComparer
+    public interface IComparer<in T> 
     {
         bool Compare(T obj1, T obj2, out IEnumerable<Difference> differences);
 
