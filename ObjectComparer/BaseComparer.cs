@@ -1,27 +1,35 @@
-using System;
-using System.Linq.Expressions;
-using System.Reflection;
-using ObjectComparer.Utils;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ObjectComparer
+namespace ObjectComparer.Comparers
 {
-    public abstract class BaseComparer //: IBaseComparer
+    internal abstract class BaseComparer
     {        
+        public abstract bool IsComparable(Type type);
 
-        public IValueComparer DefaultValueComparer { get; private set; }
-
-        protected ComparersFactory Factory { get; }
-
-
-        protected BaseComparer( BaseComparer parentComparer, ComparersFactory factory)
+        public bool AreEqual(object a, object b)
         {
-            Factory = factory ?? new ComparersFactory();            
-            DefaultValueComparer = new DefaultValueComparer();
-            if (parentComparer != null)
+            try
             {
-                DefaultValueComparer = parentComparer.DefaultValueComparer;               
+                if (a == null || b == null) return a == b;
+                else if (a == b) return true;
+                else if (a.Equals(b)) return true;
+                else
+                {
+                    bool result = this.Compare(a, b);
+                    return result;
+                }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
-        
+
+        protected abstract bool Compare(object a, object b);
     }
 }

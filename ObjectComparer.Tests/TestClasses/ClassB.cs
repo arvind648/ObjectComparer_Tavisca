@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjectComparer.Tests.TestClasses
 {
-    public class ClassB
+    public class ClassB 
     {
         public string Property1 { get; set; }
     }

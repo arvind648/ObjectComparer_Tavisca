@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,28 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractComparer.cs" />
-    <Compile Include="AbstractComparerT.cs" />
     <Compile Include="BaseComparer.cs" />
     <Compile Include="Comparer.cs" />
-    <Compile Include="ComparersFactory.cs" />
-    <Compile Include="ComparerT.cs" />
-    <Compile Include="CustomComparers\AbstractEnumerablesComparer.cs" />
-    <Compile Include="CustomComparers\EnumerablesComparerT.cs" />
-    <Compile Include="CustomComparers\GenericEnumerablesComparer.cs" />
-    <Compile Include="CustomComparers\IComparerWithCondition.cs" />
-    <Compile Include="DTO\Difference.cs" />
-    <Compile Include="DTO\DifferenceTypes.cs" />
-    <Compile Include="Interfaces\IComparer.cs" />
-    <Compile Include="Interfaces\IComparer~1.cs" />
+    <Compile Include="ComparerFactory.cs" />
+    <Compile Include="Comparers\ClassComparer.cs" />
+    <Compile Include="Comparers\DefaultComparer.cs" />
+    <Compile Include="Comparers\IEnumerableComparer.cs" />
+    <Compile Include="Comparers\ValueComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\ExtensionMethods.cs" />
-    <Compile Include="ValueComparers\AbstractValueComparer.cs" />
-    <Compile Include="ValueComparers\AbstractValueComparerT.cs" />
-    <Compile Include="ValueComparers\DefaultValueComparer.cs" />
-    <Compile Include="Interfaces\IValueComparer.cs" />
-    <Compile Include="Interfaces\IValueComparerT.cs" />
+    <Compile Include="Singleton.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

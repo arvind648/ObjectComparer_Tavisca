@@ -1,32 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using ObjectComparer.Utils;
+﻿using System.Collections.Generic;
 
-namespace ObjectComparer
+namespace ObjectComparer.Comparers
 {
-    public class Comparer : AbstractComparer
+    public static class Comparer
     {
-        public static bool AreSimilar<T>(T first, T second)
+        public static bool AreSimilar<T>(T a, T b)
         {
-            return true;
-        }
-        
-        public Comparer( BaseComparer parentComparer = null, ComparersFactory factory = null) : base( parentComparer, factory)
-        {
-        }
+            if (a == null || b == null) { return EqualityComparer<T>.Default.Equals(a, b); }
+            if (a.GetType() != b.GetType()) return false;
 
-        public override bool IsSimilar(Type type, object obj1, object obj2)
+            return Compare(a, b);
+        }
+        internal static bool Compare(object a, object b)
         {
-            var ObjectComparerMethod = typeof(ComparersFactory).GetTypeInfo().GetMethods().First(m => m.IsGenericMethod);
-            var ObjectComparerGenericMethod = ObjectComparerMethod.MakeGenericMethod(type);
-            var comparer = ObjectComparerGenericMethod.Invoke(Factory, new object[] {  this });
-            var genericType = typeof(IComparer<>).MakeGenericType(type);
-            var method = genericType.GetTypeInfo().GetMethod("IsSimilar", new[] { type, type });
-
-            return (bool)method.Invoke(comparer, new[] { obj1, obj2 });
-        }       
+            if (a == null || b == null)
+                return a == b;           
+            else
+            {                
+                var comparer = Singleton<ComparerFactory>.Instance.GetComparer((a ?? b).GetType());
+                return comparer.AreEqual(a, b);
+            }
+        }
     }
 }
-

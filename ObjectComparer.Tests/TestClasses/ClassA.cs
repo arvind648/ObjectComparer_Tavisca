@@ -13,16 +13,16 @@ namespace ObjectComparer.Tests.TestClasses
         {
         }
 
-        public int IntProperty { get; set; }
+        public int IntProperty { get; set; }      
 
-        public string stringProperty { get; set; }
+        public string StringProperty { get; set; }
 
         public DateTime DateTimeProperty { get; set; }
-        public Dictionary<int, string> dictionaryProperty { get; set; }
+        public Dictionary<int, string> DictionaryProperty { get; set; }
 
-        public double doubleProperty { get; }
+        public double DoubleProperty { get; }
 
-        public bool boolProperty { get; }
+        public bool BoolProperty { get; }
 
         public int[] IntArray { get; set; }
 
@@ -38,7 +38,7 @@ namespace ObjectComparer.Tests.TestClasses
         }
         public ClassA(string val)
         {
-            stringProperty = val;
+            StringProperty = val;
         }
         public ClassA(DateTime val)
         {
@@ -46,15 +46,15 @@ namespace ObjectComparer.Tests.TestClasses
         }
         public ClassA(Dictionary<int, string> val)
         {
-            dictionaryProperty = val;
+            DictionaryProperty = val;
         }
         public ClassA(double val)
         {
-            doubleProperty = val;
+            DoubleProperty = val;
         }
         public ClassA(bool val)
         {
-            boolProperty = val;
+            BoolProperty = val;
         }
         public ClassA(int[] val)
         {
