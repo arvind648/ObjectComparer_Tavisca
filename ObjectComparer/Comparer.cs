@@ -16,8 +16,8 @@ namespace ObjectComparer.Comparers
             if (a == null || b == null)
                 return a == b;           
             else
-            {                
-                var comparer = Singleton<ComparerFactory>.Instance.GetComparer((a ?? b).GetType());
+            {
+                var comparer = Singleton<ComparerFactory>.Instance.GetComparer((a ?? b).GetType());                
                 return comparer.AreEqual(a, b);
             }
         }
