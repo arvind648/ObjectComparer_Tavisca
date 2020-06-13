@@ -49,7 +49,7 @@
     <Compile Include="ComparerFactory.cs" />
     <Compile Include="Comparers\ClassComparer.cs" />
     <Compile Include="Comparers\DefaultComparer.cs" />
-    <Compile Include="Comparers\IEnumerableComparer.cs" />
+    <Compile Include="Comparers\EnumerableComparer.cs" />
     <Compile Include="Comparers\ValueComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
