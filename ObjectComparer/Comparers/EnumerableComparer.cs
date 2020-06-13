@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,21 +29,19 @@ namespace ObjectComparer.Comparers
             IEnumerable e2 = b as IEnumerable;
             if (e1 == null || e2 == null) return e1 == e2;
 
-            object[] a1 = e1.Cast<Object>().ToArray();
-            object[] a2 = e2.Cast<Object>().ToArray();
-            if (a1 == null || a2 == null) return a1 == a2;
+            List<object> a1 = e1.Cast<object>().ToList();
+            List<object> a2 = e2.Cast<Object>().ToList();
 
-            List<object> a2List = new List<object>(a2);
-            if (a1.Length != a2.Length)
-                return false;
-            for (int i = 0; i < a1.Length; i++)
+            if (a1 == null || a2 == null) return a1 == a2;
+            if (a1.Count != a2.Count) return false;
+
+            a1.Sort();
+            a2.Sort();
+
+            for (int i = 0; i < a1.Count; i++)
             {
-                var match = a2List.Find(x => Comparer.Compare(a1[i], x) == true);
-                if (match == null)
-                {
-                    return false;
-                }
-                else a2List.Remove(match);
+                var match = Comparer.Compare(a1[i], a2[i]);
+                if (!match) return false;
             }
             return true;
         }

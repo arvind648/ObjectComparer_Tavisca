@@ -24,7 +24,7 @@ namespace ObjectComparer.Comparers
             var type = a.GetType();
             var readableProperties = type.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                      .Where(p => p.CanRead == true)
-                                     .ToArray();
+                                     .ToArray();           
 
             foreach (var property in readableProperties)
             {

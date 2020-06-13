@@ -49,7 +49,7 @@ namespace ObjectComparer.Tests
         }
         #endregion
 
-        #region Int
+        #region String
         [TestMethod]
         public void String_Equality()
         {
