@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace ObjectComparer.Comparers
 {
-    internal class ClassComparer : BaseComparer
+    internal class ClassComparer : IComparer
     {
-        public ClassComparer() : base() { }
+        public ClassComparer() { }// : base() { }
 
-        public override bool IsComparable(Type type)
+        public  bool IsComparable(Type type)
         {
-            return type.IsClass;
+            return type.IsClass && !type.IsArray;
         }
 
-        protected override bool Compare(object a, object b)
+        public bool Compare(object a, object b)
         {
             if (a.GetType() != b.GetType())
                 return false;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ObjectComparer.Comparers
 {
-    internal class ValueTypeComparer : BaseComparer
+    internal class ValueTypeComparer : IComparer
     {
-        public ValueTypeComparer() : base() { }
+        public ValueTypeComparer() { }// : base() { }
 
         private static readonly Type[] ValueTypes = new Type[]
             {
@@ -26,12 +26,12 @@ namespace ObjectComparer.Comparers
                 typeof(char)
             };
 
-        public override bool IsComparable(Type type)
+        public  bool IsComparable(Type type)
         {
             return ValueTypes.Contains(type) || type.IsEnum;
         }
 
-        protected override bool Compare(object a, object b)
+        public bool Compare(object a, object b)
         {            
             return a.Equals(b);
         }

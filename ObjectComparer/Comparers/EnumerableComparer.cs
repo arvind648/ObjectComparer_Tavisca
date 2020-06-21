@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ObjectComparer.Comparers
 {
-    internal class EnumerableComparer : BaseComparer
+    internal class EnumerableComparer : IComparer
     {
-        public EnumerableComparer() : base() { }
+        public EnumerableComparer() { }// : base() { }
 
-        public override bool IsComparable(Type type)
+        public  bool IsComparable(Type type)
         {
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IList<>))
                 return true;
@@ -23,7 +23,7 @@ namespace ObjectComparer.Comparers
             return false;
         }
 
-        protected override bool Compare(object a, object b)
+        public bool Compare(object a, object b)
         {
             IEnumerable e1 = a as IEnumerable;
             IEnumerable e2 = b as IEnumerable;

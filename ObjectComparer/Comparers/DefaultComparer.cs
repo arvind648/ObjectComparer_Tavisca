@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace ObjectComparer.Comparers
 {
-    internal class DefaultComparer : BaseComparer
+    internal class DefaultComparer : IComparer
     {
-        public DefaultComparer() : base() { }
+        public DefaultComparer() { }// : base() { }
 
-        public override bool IsComparable(Type type)
+        public bool IsComparable(Type type)
         {
             return true;
         }
 
-        protected override bool Compare(object a, object b)
+        public  bool Compare(object a, object b)
         {
             return false;
         }
